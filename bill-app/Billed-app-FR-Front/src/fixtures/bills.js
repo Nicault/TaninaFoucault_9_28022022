@@ -1,3 +1,6 @@
+import { formatDate } from "../app/format.js"
+
+
 export const bills = [{
   "id": "47qAXb6fIm2zOKkLzMro",
   "vat": "80",

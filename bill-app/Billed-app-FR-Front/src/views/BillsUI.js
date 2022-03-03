@@ -5,11 +5,18 @@ import LoadingPage from "./LoadingPage.js"
 import Actions from './Actions.js'
 
 const row = (bill) => {
+  // ajout d'un if else ici pour l'affichage
+  let date  
+  if (bill.dateAZ) {
+    date = bill.dateAZ
+  } else {
+    date = bill.date
+  } 
   return (`
     <tr>
       <td>${bill.type}</td>
       <td>${bill.name}</td>
-      <td>${bill.date}</td>
+      <td>${date}</td>
       <td>${bill.amount} €</td>
       <td>${bill.status}</td>
       <td>
@@ -17,14 +24,17 @@ const row = (bill) => {
       </td>
     </tr>
     `)
+    
   }
 
 const rows = (data) => {
-  return (data && data.length) ? data.map(bill => row(bill)).join("") : ""
+  // ajout du tri ici
+  const antiChrono = (a, b) => ((a.date < b.date) ? 1 : -1)
+  return (data && data.length) ? data.sort(antiChrono).map(bill => row(bill)).join("") : ""
 }
 
 export default ({ data: bills, loading, error }) => {
-  
+
   const modal = () => (`
     <div class="modal fade" id="modaleFile" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered modal-lg" role="document">

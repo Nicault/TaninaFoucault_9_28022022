@@ -86,6 +86,9 @@ export default class {
   }
 
   handleEditTicket(e, bill, bills) {
+    console.log(this.counter)
+    console.log("this id :" + this.id + "\n" + "bill id :" + bill.id)
+
     if (this.counter === undefined || this.id !== bill.id) this.counter = 0
     if (this.id === undefined || this.id !== bill.id) this.id = bill.id
     if (this.counter % 2 === 0) {
@@ -108,6 +111,8 @@ export default class {
     $('#icon-eye-d').click(this.handleClickIconEye)
     $('#btn-accept-bill').click((e) => this.handleAcceptSubmit(e, bill))
     $('#btn-refuse-bill').click((e) => this.handleRefuseSubmit(e, bill))
+    console.log(this.counter)
+
   }
 
   handleAcceptSubmit = (e, bill) => {
@@ -133,6 +138,7 @@ export default class {
   handleShowTickets(e, bills, index) {
     if (this.counter === undefined || this.index !== index) this.counter = 0
     if (this.index === undefined || this.index !== index) this.index = index
+    // console.log(this.counter)
     if (this.counter % 2 === 0) {
       $(`#arrow-icon${this.index}`).css({ transform: 'rotate(0deg)'})
       $(`#status-bills-container${this.index}`)

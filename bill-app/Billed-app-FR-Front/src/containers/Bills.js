@@ -19,7 +19,6 @@ export default class {
   handleClickNewBill = () => {
     this.onNavigate(ROUTES_PATH['NewBill'])
   }
-
   handleClickIconEye = (icon) => {
     const billUrl = icon.getAttribute("data-bill-url")
     const imgWidth = Math.floor($('#modaleFile').width() * 0.5)
@@ -33,18 +32,25 @@ export default class {
       .bills()
       .list()
       .then(snapshot => {
+       
         const bills = snapshot
           .map(doc => {
             try {
+
               return {
                 ...doc,
-                date: formatDate(doc.date),
+                // date : formatDate(doc.date),
+                // création de dateAZ pour pouvoir garder les valeurs de date pour le tri
+                dateAZ: formatDate(doc.date),
                 status: formatStatus(doc.status)
+
               }
-            } catch(e) {
+            } catch(e) {             
+
               // if for some reason, corrupted data was introduced, we manage here failing formatDate function
               // log the error and return unformatted date in that case
               console.log(e,'for',doc)
+
               return {
                 ...doc,
                 date: doc.date,
@@ -52,7 +58,8 @@ export default class {
               }
             }
           })
-          console.log('length', bills.length)
+
+          console.log('length', bills.length)          
         return bills
       })
     }

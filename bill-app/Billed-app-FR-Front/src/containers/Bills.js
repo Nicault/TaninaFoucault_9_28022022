@@ -28,16 +28,19 @@ export default class {
 
   getBills = () => {
     if (this.store) {
+      console.log(this.store.bills().list()) //ici this.store renvoie à l'api backend
       return this.store
       .bills()
       .list()
       .then(snapshot => {
        
-        const bills = snapshot
+        const bills = snapshot //bills == snapshot == doc
           .map(doc => {
-            try {
+            try {                
+
 
               return {
+                
                 ...doc,
                 // date : formatDate(doc.date),
                 // création de dateAZ pour pouvoir garder les valeurs de date pour le tri

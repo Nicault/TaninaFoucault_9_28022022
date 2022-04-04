@@ -20,7 +20,18 @@ export default class NewBill {
     e.preventDefault()
     const file = this.document.querySelector(`input[data-testid="file"]`).files[0]
     const filePath = e.target.value.split(/\\/g)
-    const fileName = filePath[filePath.length-1]   
+    const fileName = filePath[filePath.length-1]  
+    
+    // ici verification de l'extention 
+    // voir pour un text en rouge plutot que l'alerte ?
+    const position = fileName.lastIndexOf(".")
+    const ext = fileName.slice(position).toLowerCase()
+    console.log(ext)
+    if (ext != ".jpg" && ext != ".jpeg" && ext != ".png"){
+      e.target.value=""
+      alert("Veuillez sélectionner un fichier au format .PNG, .JPG ou .JPEG")
+    }
+
     const formData = new FormData()
     const email = JSON.parse(localStorage.getItem("user")).email
     formData.append('file', file)

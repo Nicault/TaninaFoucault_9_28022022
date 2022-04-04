@@ -28,7 +28,6 @@ export default class {
 
   getBills = () => {
     if (this.store) {
-      console.log(this.store.bills().list()) //ici this.store renvoie à l'api backend
       return this.store
       .bills()
       .list()

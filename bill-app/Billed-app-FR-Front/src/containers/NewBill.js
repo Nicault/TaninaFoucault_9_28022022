@@ -26,10 +26,11 @@ export default class NewBill {
     // voir pour un text en rouge plutot que l'alerte ?
     const position = fileName.lastIndexOf(".")
     const ext = fileName.slice(position).toLowerCase()
-    console.log(ext)
+    // console.log(ext)
     if (ext != ".jpg" && ext != ".jpeg" && ext != ".png"){
       e.target.value=""
-      alert("Veuillez sélectionner un fichier au format .PNG, .JPG ou .JPEG")
+      // alert("Veuillez sélectionner un fichier au format .PNG, .JPG ou .JPEG")
+      return
     }
 
     const formData = new FormData()
@@ -51,6 +52,8 @@ export default class NewBill {
         this.fileUrl = fileUrl
         this.fileName = fileName
       }).catch(error => console.error(error))
+
+      
   }
 
   handleSubmit = e => {
@@ -75,6 +78,7 @@ export default class NewBill {
   }
 
   // not need to cover this function by tests
+  /* istanbul ignore next */
   updateBill = (bill) => {
     if (this.store) {
       this.store

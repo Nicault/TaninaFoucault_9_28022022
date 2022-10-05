@@ -12,6 +12,7 @@ const row = (bill) => {
   } else {
     date = bill.date
   } 
+  // let date = bill.dateAZ
   return (`
     <tr>
       <td>${bill.type}</td>

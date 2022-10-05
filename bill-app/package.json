@@ -1,0 +1,8 @@
+{
+  "devDependencies": {
+    "@testing-library/jest-dom": "^5.16.4",
+    "@types/jquery": "^3.5.14",
+    "eslint-plugin-jest-dom": "^4.0.1",
+    "jest-extended": "^2.0.0"
+  }
+}

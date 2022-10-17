@@ -16,27 +16,23 @@ import store from '../__mocks__/store'
 
 describe("Given I am connected as an employee", () => {
   describe("When I am on Bills Page", () => {
-
     test("Then bill icon in vertical layout should be highlighted", async () => {
-      Object.defineProperty(window, "localStorage", {
-        value: localStorageMock,
-      });
-      window.localStorage.setItem(
-        "user",
-        JSON.stringify({
-          type: "Employee",
-        })
-      );
+
+      Object.defineProperty(window, 'localStorage', { value: localStorageMock })
+      window.localStorage.setItem('user', JSON.stringify({
+        type: 'Employee'
+      }))
       const root = document.createElement("div")
       root.setAttribute("id", "root")
       document.body.append(root)
       router()
-      window.onNavigate(ROUTES_PATH.Bills);
-      await waitFor(() => screen.getByTestId('icon-window'))
-      const windowIcon = screen.getByTestId('icon-window')
+      window.onNavigate(ROUTES_PATH.Bills)
+      await waitFor(() => screen.getAllByTestId('icon-window'))
+      const windowIcon = screen.getAllByTestId('icon-window')[0]
       //to-do write expect expression
+
       expect(windowIcon.classList.value).toContain("active-icon")
-      expect(windowIcon.classList.contains("active-icon")).toBe(true);
+      // expect(windowIcon.classList.contains("active-icon")).toBe(true);
             
       // done
     })

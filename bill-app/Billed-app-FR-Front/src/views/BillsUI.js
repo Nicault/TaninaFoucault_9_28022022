@@ -12,6 +12,8 @@ const row = (bill) => {
   } else {
     date = bill.date
   } 
+
+  // console.log(bill.date)
   // let date = bill.dateAZ
   return (`
     <tr>

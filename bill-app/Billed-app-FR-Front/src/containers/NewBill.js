@@ -18,25 +18,29 @@ export default class NewBill {
 
   handleChangeFile = e => {
     e.preventDefault()
+    // console.log(e.target.value)
     const file = this.document.querySelector(`input[data-testid="file"]`).files[0]
-    const filePath = e.target.value.split(/\\/g)
-    const fileName = filePath[filePath.length-1]  
+    // const filePath = e.target.value.split(/\\/g)
+    console.log(e.target.value.split(/\\/g))
+    // console.log(filePath)
+    // const fileName = filePath[filePath.length-1]
+    const fileName = e.target.files[0].name
     
-    // ici verification de l'extention 
+    const formData = new FormData()
+    const email = JSON.parse(localStorage.getItem("user")).email
+    formData.append('file', file)
+    formData.append('email', email)
+
+     // ici verification de l'extention 
     // voir pour un text en rouge plutot que l'alerte ?
     const position = fileName.lastIndexOf(".")
     const ext = fileName.slice(position).toLowerCase()
-    // console.log(ext)
+    console.log(ext)
     if (ext != ".jpg" && ext != ".jpeg" && ext != ".png"){
       e.target.value=""
       // alert("Veuillez sélectionner un fichier au format .PNG, .JPG ou .JPEG")
       return
     }
-
-    const formData = new FormData()
-    const email = JSON.parse(localStorage.getItem("user")).email
-    formData.append('file', file)
-    formData.append('email', email)
 
     this.store
       .bills()

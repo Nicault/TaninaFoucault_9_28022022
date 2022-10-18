@@ -15,10 +15,8 @@ import { bills } from "../fixtures/bills.js"
 import { ROUTES_PATH } from "../constants/routes.js";
 import router from "../app/Router.js";
 import store from '../app/Store.js'
-// jest.mock('../app/store', () => mockStore)
-
-
 jest.mock('../app/store', () => mockStore)
+
 
 describe("Given I am connected as an employee", () => {
   describe("when I am on new bill page", () => {
@@ -36,7 +34,8 @@ describe("Given I am connected as an employee", () => {
 
       const newBillsFunc = new NewBill({ document, onNavigate, store, localStorage: window.localStorage })
 
-    test('then I load a file with a wrong format', async () => {
+    test('then I load a file with a wrong extension', async () => {
+    
       await waitFor(() => screen.getByText('Envoyer une note de frais'))
 
       const file = screen.getByTestId("file");
@@ -48,9 +47,13 @@ describe("Given I am connected as an employee", () => {
       const fileImg = new File(['fileName'], 'fileName.pdf', { type: 'text/pdf' })
       fireEvent.change(file, { target: { files: [fileImg] } })
       expect(handleChangeFile).toHaveBeenCalled()
+
+      const alertTxt = screen.getByTestId("alertTxt");
+      expect(alertTxt).toBeTruthy()
+      expect(alertTxt.classList.value).not.toContain("hide")
     })
 
-    test('then I load a file with a correct format', async () => {
+    test('then I load a file with a correct extension', async () => {
       await waitFor(() => screen.getByText('Envoyer une note de frais'))
 
       const file = screen.getByTestId("file");
@@ -62,6 +65,11 @@ describe("Given I am connected as an employee", () => {
     const fileImg = new File(['fileName'], 'fileName.png', { type: 'image/png' })
     fireEvent.change(file, { target: { files: [fileImg] } })
     expect(handleChangeFile).toHaveBeenCalled()
+
+    const alertTxt = screen.getByTestId("alertTxt");
+      expect(alertTxt).toBeTruthy()
+      expect(alertTxt.classList.value).toContain("hide")
+
     })
 
     test("then i can create a new bill", async() => {
@@ -100,36 +108,38 @@ describe("Given I am connected as an employee", () => {
       form.addEventListener('submit', handleSubmit)
       fireEvent.submit(form)
       expect(handleSubmit).toHaveBeenCalled()
+
+      await waitFor(() => screen.getByText('Mes notes de frais'))
+      expect (screen.getByText('Mes notes de frais')).toBeTruthy()
     })
 
+  //  describe('When I post a bill', () => {
+	// 		test('Number of bills fetched should be increased by 1', async () => {
+	// 			const postSpy = jest.spyOn(firebase, 'post');
 
-    // describe('When I post a bill', () => {
-		// 	test('Number of bills fetched should be increased by 1', async () => {
-		// 		const postSpy = jest.spyOn(firebase, 'post');
-
-		// 		const newBillForTest = {
-		// 			id: 'M5fRN4WU0dv15Yeqlqqe',
-		// 			vat: '80',
-		// 			amount: 50,
-		// 			name: 'test integration post',
-		// 			fileName: 'bill.png',
-		// 			commentary: 'note de frais pour test',
-		// 			pct: 20,
-		// 			type: 'Transports',
-		// 			email: 'test@post.com',
-		// 			fileUrl: 'https://via.placeholder.com/140x140',
-		// 			date: '2020-09-11',
-		// 			status: 'pending',
-		// 			commentAdmin: 'test',
-		// 		};
-    //     const prevBills = await firebase.get()
-		// 		const Bills = await firebase.post(newBillForTest)
-    //     let billsDiff = Bills.length - prevBills.length
-		// 		expect(postSpy).toHaveBeenCalledTimes(1)
-		// 		expect(Bills.length).toBe(5)
-    //     expect(billsDiff).toBe(1)
-		// 	});
-		// });
+	// 			const newBillForTest = {
+	// 				id: 'M5fRN4WU0dv15Yeqlqqe',
+	// 				vat: '80',
+	// 				amount: 50,
+	// 				name: 'test integration post',
+	// 				fileName: 'bill.png',
+	// 				commentary: 'note de frais pour test',
+	// 				pct: 20,
+	// 				type: 'Transports',
+	// 				email: 'test@post.com',
+	// 				fileUrl: 'https://via.placeholder.com/140x140',
+	// 				date: '2020-09-11',
+	// 				status: 'pending',
+	// 				commentAdmin: 'test',
+	// 			};
+  //       const prevBills = await firebase.get()
+	// 			const Bills = await firebase.post(newBillForTest)
+  //       let billsDiff = Bills.length - prevBills.length
+	// 			expect(postSpy).toHaveBeenCalledTimes(1)
+	// 			expect(Bills.length).toBe(5)
+  //       expect(billsDiff).toBe(1)
+	// 		});
+	// 	});
 
   })
 })

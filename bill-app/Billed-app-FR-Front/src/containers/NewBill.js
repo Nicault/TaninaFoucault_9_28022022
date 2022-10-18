@@ -16,12 +16,14 @@ export default class NewBill {
     new Logout({ document, localStorage, onNavigate })
   }
 
+ 
+
   handleChangeFile = e => {
     e.preventDefault()
     // console.log(e.target.value)
     const file = this.document.querySelector(`input[data-testid="file"]`).files[0]
     // const filePath = e.target.value.split(/\\/g)
-    console.log(e.target.value.split(/\\/g))
+    // console.log(e.target.value.split(/\\/g))
     // console.log(filePath)
     // const fileName = filePath[filePath.length-1]
     const fileName = e.target.files[0].name
@@ -33,14 +35,25 @@ export default class NewBill {
 
      // ici verification de l'extention 
     // voir pour un text en rouge plutot que l'alerte ?
+    
     const position = fileName.lastIndexOf(".")
     const ext = fileName.slice(position).toLowerCase()
-    console.log(ext)
+
+     //ici
+    const alertTxt = this.document.getElementById('alertTxt')
+    const alertFunc = () => { 
+    if (alertTxt.classList.contains('hide')) {
+      alertTxt.classList.remove('hide')
+      }
+    }
+    
+    // console.log(ext)
     if (ext != ".jpg" && ext != ".jpeg" && ext != ".png"){
       e.target.value=""
-      // alert("Veuillez sélectionner un fichier au format .PNG, .JPG ou .JPEG")
+      alertFunc()
       return
-    }
+    } 
+    alertTxt.classList.add('hide')
 
     this.store
       .bills()
@@ -95,3 +108,4 @@ export default class NewBill {
     }
   }
 }
+

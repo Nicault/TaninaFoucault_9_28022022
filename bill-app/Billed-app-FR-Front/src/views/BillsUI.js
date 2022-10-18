@@ -6,15 +6,17 @@ import Actions from './Actions.js'
 
 const row = (bill) => {
   // ajout d'un if else ici pour l'affichage
-  let date  
+  if (!bill.date) {
+    return
+  }
+
+  let date
   if (bill.dateAZ) {
     date = bill.dateAZ
   } else {
     date = bill.date
   } 
 
-  // console.log(bill.date)
-  // let date = bill.dateAZ
   return (`
     <tr>
       <td>${bill.type}</td>
